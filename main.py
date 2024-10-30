@@ -21,7 +21,7 @@ def quinto_andar(tipo_comp_alg, cidade, uf, max_paginas=100):
         html = req_pag(url)
         
         if html is None:
-            break  # Se houve erro na requisição, sai do loop
+            break
         
         # Criando um objeto BeautifulSoup
         soup = BeautifulSoup(html, 'html.parser')
@@ -30,7 +30,7 @@ def quinto_andar(tipo_comp_alg, cidade, uf, max_paginas=100):
         h3_elements = soup.find_all('h3', class_='CozyTypography')
         h2_elements = soup.find_all('h2', class_='CozyTypography')
         
-        if not h2_elements:  # Se não houver mais imóveis, sai do loop
+        if not h2_elements:
             break
 
         # Frases indesejadas para ignorar
@@ -50,9 +50,7 @@ def quinto_andar(tipo_comp_alg, cidade, uf, max_paginas=100):
             cond_iptu = h3_elements[i * 3 + 1].get_text(strip=True).replace('R$ ', 'R$').replace('R$ ', 'R$')
             detalhes = h3_elements[i * 3 + 2].get_text(strip=True).replace('·', '-')
 
-            # Verifica se o texto não está na lista de frases indesejadas
             if not any(frase in preco for frase in frases_indesejadas):
-                # Adiciona os dados do imóvel em uma lista
                 dados_imoveis.append([endereco, preco, cond_iptu, detalhes])
     
     return dados_imoveis
@@ -74,11 +72,9 @@ def main():
     cidade = 'guarulhos'       # sempre substituir espaço por traço
     uf = 'sp'
     
-    # Chama a função para pegar os dados da página
-    dados_imoveis = quinto_andar(tipo_comp_alg, cidade, uf)
+    dados_imoveis_qa = quinto_andar(tipo_comp_alg, cidade, uf)
     
-    # Salva os dados no arquivo CSV
-    salvar_csv(dados_imoveis, f'imoveis-{cidade}.csv')
+    salvar_csv(dados_imoveis_qa, f'imoveis-{cidade}.csv')
 
 if __name__ == '__main__':
     main()
