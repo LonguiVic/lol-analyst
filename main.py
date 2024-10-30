@@ -71,10 +71,8 @@ def main():
     tipo_comp_alg = 'comprar'  # também pode ser 'alugar'
     cidade = 'guarulhos'       # sempre substituir espaço por traço
     uf = 'sp'
-    
     dados_imoveis_qa = quinto_andar(tipo_comp_alg, cidade, uf)
-    
-    salvar_csv(dados_imoveis_qa, f'imoveis-{cidade}.csv')
+    salvar_csv(dados_imoveis_qa, f'quintoandar-imoveis-{cidade}.csv')
 
 if __name__ == '__main__':
     main()
